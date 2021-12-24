@@ -6,32 +6,17 @@ module.exports = new Command({
 	name: "fight",
 	description: "Starts a Battle",
 	async run(message, args, client) {
-        /*
-        let p1, p2ID, p2
-        if (msg.mentions.members.size == 1) {
-            p1 = msg.author.username;
-            p2ID = [...msg.mentions.users][0][0].toString();
-            p2 = client.users.cache.get(p2ID).username;
+        let p1, p2, p2ID
 
-            message.channel.threads.create({
-                name : `${p1} -vs- ${p2}`,
-                autoArchiveDuration: 60
-            })
-        }
-        */
+        p1 = message.author.username;
+        p2 = client.user.username;
 
-		client.on('messageCreate', async msg => {
-            let p1, p2ID, p2
-            if (msg.mentions.members.size == 1) {
-                p1 = msg.author.username;
-                p2ID = [...msg.mentions.users][0][0].toString();
-                p2 = client.users.cache.get(p2ID).username;
-                
-                await msg.channel.threads.create({
-                    name : `${p1} -vs- ${p2}`,
-                    autoArchiveDuration: 60
-                })
-            }   
+        let thread = await message.channel.threads.create({
+            name : `${p1} -vs- ${p2}`,
+            autoArchiveDuration: 60
         })
-	}
+        
+        //put initial embedding here
+        thread.send("Shark battle thread");
+        }
 });

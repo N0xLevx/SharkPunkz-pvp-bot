@@ -4,11 +4,14 @@ const bite = async (attacker, defender) =>{
         return 'Attack missed - 0 damage'
     }
     const punkJuiceMultiplier = 1.28
-    if (attack)
+
     const attackPower = getRndInteger(0.7, 1) * (attacker.activeTurnPunkJuice > 0 ? punkJuiceMultiplier: 1);
     const defensePower = getRndInteger(0, 0.3)* (defender.activeTurnPunkJuice > 0 ? punkJuiceMultiplier: 1);
     const attackDamage = Math.round((attackPower - defensePower)*15) * attacker.am / defender.dm;
     defender.hp -= attackDamage;
+    if (attacker.activeTurnPunkJuice > 0){
+        attacker.activeTurnPunkJuice -= 1;
+    }
     return `Damage = ${attackDamage}`;
 };
 
@@ -37,4 +40,4 @@ function precision(pm){
     }
 };
 
-module.exports = bite;
+module.exports = biteAttack;
